@@ -34,7 +34,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function handleLogin(userLogin: UsuarioLogin) {
         setIsLoading(true) // quando clicar pra login mudo status isloading de falso para verdadeiro
         try {
-            await login(`/usuarios/logar`, userLogin, setUsuario) // url do login, objeto userlogin, setusuario ele verifica se se tudo foi preenchido do objeto usuario senão vai pro catch
+            await login(`/usuarios/logar`, userLogin, setUsuario) // url do login, objeto userlogin, setusuario ele verifica se se tudo foi preenchido do objeto usuario, senão vai pro catch como dados nao encontrados
 
             alert("Usuário logado com sucesso")
             setIsLoading(false)
