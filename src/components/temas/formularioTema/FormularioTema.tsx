@@ -105,7 +105,7 @@ function FormularioTema() {
     return (
         <div className="container flex flex-col items-center justify-center mx-auto">
             <h1 className="text-4xl text-center my-8">
-            {id === undefined ? 'Cadastrar Tema' : 'Editar Tema'} // duvidas perguntar
+            {id === undefined ? 'Cadastrar Tema' : 'Editar Tema'} 
             </h1>
 
             <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoTema} >

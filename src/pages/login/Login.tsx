@@ -6,18 +6,28 @@ import { RotatingLines } from "react-loader-spinner";
 
 import './Login.css';
 
+
+
 function Login (){
 
 const navigate = useNavigate(); 
 const { usuario, handleLogin, isLoading } = useContext(AuthContext); // useConext ele vai se conectar com minha context(authContext), e na const eu passo o que quero da Authcontext.
 
+
+
+
+
 const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
-    {} as UsuarioLogin // local que armazeno os dados digitados pelo usuario na pag login
-);
+    {} as UsuarioLogin // local que armazeno os dados digitados pelo usuario na pag logi
+    );
+    
 
 useEffect(() => {
-    if (usuario.token !== "") { // a função handlelogin verifica, se retorna um token é porque o usuario foi encotrado ai redireciona ela pra pg home (navigate(i/home))
-        navigate('/home')
+    if (usuario.token !== "") { // a função handlelogin verifica, se retorna um token é porque o usuario foi encotrado ai redireciona ela pra pg home (navigate(/home))
+        setTimeout(() => {
+          
+            navigate('/home');
+        }, 3000);
     }
 }, [usuario])// quando o usuario logar na aplicação.
 
@@ -33,10 +43,12 @@ function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
 function login(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault() // impede o carregamento automatico da pagina
     handleLogin(usuarioLogin) // chamamos a funçao handlelogin- com o usuarioLogin preenchido com o as informações certas
+  
 }
   return (
     
         <>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold">
                 <form className="flex justify-center items-center flex-col w-1/2 gap-4" 
                     onSubmit={login}>
