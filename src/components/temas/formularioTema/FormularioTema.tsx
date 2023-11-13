@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import Tema from "../../../models/Tema";
 import { buscar, atualizar, cadastrar } from "../../../service/Service";
 import { RotatingLines } from "react-loader-spinner";
+import { toastAlerta } from "../../../utils/toastAlerta";
 
 function FormularioTema() {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ function FormularioTema() {
             })
         } catch (error: any) {
             if (error.toString().includes('403')) {
-                alert('O token expirou, favor logar novamente')
+                toastAlerta('O token expirou, favor logar novamente', "info")
                 handleLogout()
             }
         }
@@ -34,7 +35,7 @@ function FormularioTema() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado');
+            toastAlerta('Você precisa estar logado', "info")
             navigate('/login');
         }
     }, [token]);
@@ -64,14 +65,14 @@ function FormularioTema() {
                     }
                 })
 
-                alert('Tema atualizado com sucesso')
+                toastAlerta('Tema atualizado com successo', "success")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
-                    alert('O token expirou, favor logar novamente')
+                    toastAlerta('O token expirou, favor logar novamente', "info")
                     handleLogout()
                 } else {
-                    alert('Erro ao atualizar o Tema')
+                    toastAlerta('Erro ao atualizar o Tema', "erro")
                 }
             }
 
@@ -83,14 +84,14 @@ function FormularioTema() {
                     }
                 })
 
-                alert('Tema cadastrado com sucesso')
+                toastAlerta('Tema cadastrado com successo', "success")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
-                    alert('O token expirou, favor logar novamente')
+                    toastAlerta('O token expirou, favor logar novamente', "info")
                     handleLogout()
                 } else {
-                    alert('Erro ao cadastrar o Tema')
+                    toastAlerta('Erro ao cadastrar o Tema', "erro")
                 }
             }
         }
@@ -123,7 +124,7 @@ function FormularioTema() {
                 <button
                    className="rounded text-slate-100 bg-indigo-400 
                    hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center" type="submit">
-
+ 
                    {isLoading ?
                        <RotatingLines
                            strokeColor="white"
@@ -131,6 +132,7 @@ function FormularioTema() {
                            animationDuration="0.75"
                            width="24"
                            visible={true}
+                           
                        /> :
                        <span>Confirmar</span>
                    }

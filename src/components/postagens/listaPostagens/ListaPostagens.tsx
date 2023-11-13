@@ -7,6 +7,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 
 import Postagem from '../../../models/Postagem';
 import CardPostagens from '../cardPostagens/CardPostagens';
+import { toastAlerta } from '../../../utils/toastAlerta';
 
 function ListaPostagens() {
 
@@ -27,7 +28,7 @@ function ListaPostagens() {
 
         } catch (error: any) {
             if (error.toString().includes('403')) {
-                alert('O token expirou, favor logar novamente')
+                toastAlerta('O token expirou, favor logar novamente', "error")
                 handleLogout()
             }
         }
@@ -35,7 +36,7 @@ function ListaPostagens() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado')
+            toastAlerta('Você precisa estar logado', "error")
             navigate('/');
         }
     }, [token])
@@ -47,7 +48,9 @@ function ListaPostagens() {
     return (     
         
         <>
+      
         {postagens.length === 0 && (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
             <Dna
                 visible={true}
                 height="200"
@@ -55,7 +58,9 @@ function ListaPostagens() {
                 ariaLabel="dna-loading"
                 wrapperStyle={{}}
                 wrapperClass="dna-wrapper mx-auto"
+                
             />
+            </div>
         )}
 
         <div className='container mx-auto my-4 

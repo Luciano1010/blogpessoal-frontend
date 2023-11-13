@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useState } from "react"
 import UsuarioLogin from "../models/UsuarioLogin"
 import { login } from "../service/Service"
+import { toastAlerta } from "../utils/toastAlerta"
 
 interface AuthContextProps {
     usuario: UsuarioLogin
@@ -36,12 +37,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             await login(`/usuarios/logar`, userLogin, setUsuario) // url do login, objeto userlogin, setusuario ele verifica se se tudo foi preenchido do objeto usuario, senão vai pro catch como dados nao encontrados
 
-            alert("Usuário logado com sucesso")
+            toastAlerta('Usuário logado com sucesso', "success")
             setIsLoading(false)
 
         } catch (error) {
             console.log(error)
-            alert("Dados do usuário inconsistentes")
+            toastAlerta('Dados do usuário inconsistentes', "erro")
             setIsLoading(false)
         }
     }

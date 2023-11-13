@@ -4,11 +4,11 @@ import ModalPostagem from "../../components/postagens/modalPostagem/ModalPostage
 function Home() {
     return (
         <>
-            <div className="bg-indigo-900 flex justify-center">
+            <div className="bg-gradient-to-r from-indigo-900 via-indigo-600 to-indigo-900 flex justify-center">
                 <div className='container grid grid-cols-2 text-white'>
                     <div className="flex flex-col gap-4 items-center justify-center py-4">
                         <h2 className='text-5xl font-bold'>
-                            Seja Bem Vinde!
+                            Seja Bem Vindo!
                         </h2>
                         <p className='text-xl'>
                             Expresse aqui seus pensamentos e opniões
@@ -22,16 +22,17 @@ function Home() {
                     </div>
 
                     <div className="flex justify-center ">
-                        <img
-                            src="https://i.imgur.com/fyfri1v.png"
+                        <img 
+                            src="https://th.bing.com/th/id/OIG.yGNFWXvStGJxelHDvwsb?pid=ImgGn " 
                             alt="Imagem Página Home"
-                            className='w-2/3'
+                            className='w-2/3 rounded-full'
                         />
                     </div>
                 </div>
             </div>
-
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
             <ListaPostagens />
+            </div>
         </>
     )
 }

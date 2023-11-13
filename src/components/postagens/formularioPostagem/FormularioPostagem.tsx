@@ -7,6 +7,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 
 import Tema from '../../../models/Tema';
 import Postagem from '../../../models/Postagem';
+import { toastAlerta } from '../../../utils/toastAlerta';
 
 function FormularioPostagem()
 {
@@ -24,6 +25,8 @@ function FormularioPostagem()
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
 
+
+    // as 3 funções abaixo eu usei a service pra usar o 'buscar'
     async function buscarPostagemPorId(id: string) {
         await buscar(`/postagens/${id}`, setPostagem, {
             headers: {
@@ -32,6 +35,7 @@ function FormularioPostagem()
         })
     }
 
+    // função que vai fazer a lista de todos os temas para ser escolhido
     async function buscarTemaPorId(id: string) {
         await buscar(`/temas/${id}`, setTema, {
             headers: {
@@ -50,7 +54,7 @@ function FormularioPostagem()
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado');
+            toastAlerta('Você precisa estar logado', "info")
             navigate('/');
         }
     }, [token])
@@ -61,7 +65,7 @@ function FormularioPostagem()
         if (id !== undefined) {
             buscarPostagemPorId(id)
         }
-    }, [id])
+    }, [id]) // o id ja foi inicilaido quando o hook (useparemts) pegar o id pela url e isso segue para todos.
 
     // é que vai atualizar caso o usuario queria atualizar o tema escolhido para aquela postagem.
     useEffect(() => {
@@ -86,7 +90,7 @@ function FormularioPostagem()
     }
 
     async function gerarNovaPostagem(e: ChangeEvent<HTMLFormElement>) {
-        e.preventDefault()
+        e.preventDefault() // evita o carregamento total da pagina
         setIsLoading(true)
 
         if (id != undefined) {
@@ -97,14 +101,14 @@ function FormularioPostagem()
                     },
                 });
 
-                alert('Postagem atualizada com sucesso')
+                toastAlerta('Postagem atualizada com successo', "success")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
-                    alert('O token expirou, favor logar novamente')
+                    toastAlerta('O token expirou, favor logar novamente', "info")
                     handleLogout()
                 } else {
-                    alert('Erro ao atualizar a Postagem')
+                    toastAlerta('Erro ao atualizar a Postagem', "error")
                 }
             }
 
@@ -116,14 +120,14 @@ function FormularioPostagem()
                     },
                 })
 
-                alert('Postagem cadastrada com sucesso');
+                toastAlerta('Postagem cadastrada com sucesso', "success")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
-                    alert('O token expirou, favor logar novamente')
+                    toastAlerta('O token expirou, favor logar novamente', "info")
                     handleLogout()
                 } else {
-                    alert('Erro ao cadastrar a Postagem');
+                    toastAlerta('Erro ao cadastrar a Postagem', "error")
                 }
             }
         }
@@ -168,12 +172,19 @@ function FormularioPostagem()
                     />
                 </div>
 
+
+                
                 <div className="flex flex-col gap-2">
+                    
+                    
                     <p>Tema da Postagem</p>
+
+                    
                     <select name="tema" id="tema" className='border p-2 border-slate-800 rounded'
-                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
+                     // 'select' aqui é logica que onde o usuario clica e cada tema para ser relecionado com a postagem
+                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)} // fica verificando as mudanças no evento html
                     >
-                        <option value="" selected disabled>Selecione um Tema</option>
+                        <option value="" selected disabled>Selecione um Tema</option> // serve como texto de direcionamento ela é invalida para ser escolhido como tema.
                         {temas.map((tema) => (
                             <>
                                 <option value={tema.id} >{tema.descricao}</option>

@@ -13,10 +13,6 @@ function Login (){
 const navigate = useNavigate(); 
 const { usuario, handleLogin, isLoading } = useContext(AuthContext); // useConext ele vai se conectar com minha context(authContext), e na const eu passo o que quero da Authcontext.
 
-
-
-
-
 const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
     {} as UsuarioLogin // local que armazeno os dados digitados pelo usuario na pag logi
     );
@@ -24,10 +20,8 @@ const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
 
 useEffect(() => {
     if (usuario.token !== "") { // a função handlelogin verifica, se retorna um token é porque o usuario foi encotrado ai redireciona ela pra pg home (navigate(/home))
-        setTimeout(() => {
-          
-            navigate('/home');
-        }, 3000);
+        navigate('/home')
+       
     }
 }, [usuario])// quando o usuario logar na aplicação.
 
