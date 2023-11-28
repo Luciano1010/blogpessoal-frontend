@@ -159,7 +159,7 @@ function FormularioPostagem()
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Texto da Postagem</label>
+                    <label htmlFor="texto">Texto da Postagem</label>
 
                     <input
                         value={postagem.texto}
