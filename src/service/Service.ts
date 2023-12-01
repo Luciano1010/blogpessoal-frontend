@@ -27,19 +27,10 @@ export const cadastrarUsuario = async(url: string, dados: Object, setDados: Func
 }
 
 export const atualizar = async (url: string, dados: Object, setDados: Function, header: Object) => {
-
-        try {
-            // Faça uma solicitação OPTIONS antes da solicitação PUT
-            await api.options(url, header)
-        const resposta = await api.put(url, dados, header)
-        setDados(resposta.data)
-    }catch (error) {
-        console.error("Erro ao tentar fazer a solicitação PUT", error);
-        // Lide com o erro conforme necessário
-    }
+    
+    const resposta = await api.put(url, dados, header)
+    setDados(resposta.data)
 }
-
-
 export const deletar = async (url: string, header: Object) => {
     await api.delete(url, header)
 }
