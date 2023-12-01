@@ -17,7 +17,8 @@ function FormularioPostagem()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [temas, setTemas] = useState<Tema[]>([]) // traz todos os temas do back
 
-    const [tema, setTema] = useState<Tema>({ id: 0, descricao: '', }) // aqui é a seleção do usuario com respeito ao tema ja cadastrado, sem essa função nao teriamos como deixar invidualizado.
+    const [tema, setTema] = useState<Tema>({ id: 0, descricao: '' }) 
+    
     const [postagem, setPostagem] = useState<Postagem>({} as Postagem)
 
     const { id } = useParams<{ id: string }>()
@@ -70,27 +71,37 @@ function FormularioPostagem()
     // é que vai atualizar caso o usuario queria atualizar o tema escolhido para aquela postagem.
     useEffect(() => {
         setPostagem({
-            ...postagem, // usado o squadoperator que me traz os campos da model postagem
-            tema: tema, // relacionamento entre as tabelas o 'tema a esquerda' é o relacionemento da tabela que esta no back, ja o 'tema a direita' é onde tem os temas que ja estão cadastrados no back.
+            ...postagem, // usado o squadoperator traz meu array de postagem
+            tema: tema, // aqui atualiza os temas -
         })
-    }, [tema])
+    }, [tema]);
+
+   
 
     // vai pegar a informações do usuario e fazendo os relacionamento
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-        setPostagem({
-            ...postagem,
-            [e.target.name]: e.target.value,
-            tema: tema,
-            usuario: usuario,
-        });
-    }
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+        if (e.target.name === "tema") {
+           const temaId = parseInt(e.target.value, 10);
+           const temaSelecionado = temas.find((tema) => tema.id === temaId);
+           if (temaSelecionado) {
+              setTema(temaSelecionado);
+           } else {
+              console.error("Tema não encontrado");
+           }
+        } else {
+           setPostagem({
+              ...postagem,
+              [e.target.name]: e.target.value,
+           });
+        }
+     }
 
     function retornar() {
         navigate('/postagens');
     }
 
     async function gerarNovaPostagem(e: ChangeEvent<HTMLFormElement>) {
-        e.preventDefault() // evita o carregamento total da pagina
+        e.preventDefault() 
         setIsLoading(true)
 
         if (id != undefined) {
@@ -120,7 +131,7 @@ function FormularioPostagem()
                     },
                 })
 
-                toastAlerta('Postagem cadastrada com sucesso', "success")
+                toastAlerta('Postagem cadastrada com sucesso', "sucess")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
@@ -171,20 +182,17 @@ function FormularioPostagem()
                         className="border-2 border-slate-700 rounded p-2"
                     />
                 </div>
-
-
                 
                 <div className="flex flex-col gap-2">
                     
-                    
                     <p>Tema da Postagem</p>
 
-                    
                     <select name="tema" id="tema" className='border p-2 border-slate-800 rounded'
-                     // 'select' aqui é logica que onde o usuario clica e cada tema para ser relecionado com a postagem
-                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)} // fica verificando as mudanças no evento html
-                    >
-                        <option value="" selected disabled>Selecione um Tema</option> // serve como texto de direcionamento ela é invalida para ser escolhido como tema.
+                    
+                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
+  
+                     >
+                        <option value="" selected disabled>Selecione um Tema</option> 
                         {temas.map((tema) => (
                             <>
                                 <option value={tema.id} >{tema.descricao}</option>

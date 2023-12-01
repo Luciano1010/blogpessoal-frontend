@@ -21,8 +21,18 @@ export const cadastrarUsuario = async(url: string, dados: Object, setDados: Func
   }
 
   export const cadastrar = async (url: string, dados: Object, setDados: Function, header: Object) => {
-    const resposta = await api.post(url, dados, header)
-    setDados(resposta.data)
+
+    try{
+
+        await api.options(url, header)
+       
+        const resposta = await api.post(url, dados, header)
+        setDados(resposta.data)
+    }catch(error){
+        console.error("Erro ao tentar fazer a solicitação PUT", error);
+    }
+    
+    
 }
 
 export const atualizar = async (url: string, dados: Object, setDados: Function, header: Object) => {
