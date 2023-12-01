@@ -79,22 +79,14 @@ function FormularioPostagem()
    
 
     // vai pegar a informações do usuario e fazendo os relacionamento
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-        if (e.target.name === "tema") {
-           const temaId = parseInt(e.target.value, 10);
-           const temaSelecionado = temas.find((tema) => tema.id === temaId);
-           if (temaSelecionado) {
-              setTema(temaSelecionado);
-           } else {
-              console.error("Tema não encontrado");
-           }
-        } else {
-           setPostagem({
-              ...postagem,
-              [e.target.name]: e.target.value,
-           });
-        }
-     }
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+        setPostagem({
+            ...postagem,
+            [e.target.name]: e.target.value,
+            tema: tema,
+            usuario: usuario,
+        });
+    }
 
     function retornar() {
         navigate('/postagens');
@@ -188,15 +180,15 @@ function FormularioPostagem()
                     <p>Tema da Postagem</p>
 
                     <select name="tema" id="tema" className='border p-2 border-slate-800 rounded'
-                     // 'select' aqui é logica que onde o usuario clica e cada tema para ser relecionado com a postagem
-                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)} // fica verificando as mudanças no evento html
-                    >
-                        <option value="" selected disabled>Selecione um Tema</option> // serve como texto de direcionamento ela é invalida para ser escolhido como tema.
+                     onChange={(e) => buscarTemaPorId(e.currentTarget.value)} 
+                     >
+                        <option value="" selected disabled>Selecione um Tema</option> // 
                         {temas.map((tema) => (
                             <>
                                 <option key={tema.id} value={tema.id}>{tema.descricao}</option>
                             </>
                         ))}
+                   
                     </select>
                 </div>
                 <button
