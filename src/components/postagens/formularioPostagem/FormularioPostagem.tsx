@@ -188,14 +188,13 @@ function FormularioPostagem()
                     <p>Tema da Postagem</p>
 
                     <select name="tema" id="tema" className='border p-2 border-slate-800 rounded'
-                    
-                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
-  
-                     >
-                        <option value="" selected disabled>Selecione um Tema</option> 
+                     // 'select' aqui é logica que onde o usuario clica e cada tema para ser relecionado com a postagem
+                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)} // fica verificando as mudanças no evento html
+                    >
+                        <option value="" selected disabled>Selecione um Tema</option> // serve como texto de direcionamento ela é invalida para ser escolhido como tema.
                         {temas.map((tema) => (
                             <>
-                                <option value={tema.id} >{tema.descricao}</option>
+                                <option key={tema.id} value={tema.id}>{tema.descricao}</option>
                             </>
                         ))}
                     </select>
