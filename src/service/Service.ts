@@ -30,7 +30,7 @@ export const atualizar = async (url: string, dados: Object, setDados: Function, 
 
         try {
             // Faça uma solicitação OPTIONS antes da solicitação PUT
-            await api.options(url, header);
+            await api.options(url, header)
         const resposta = await api.put(url, dados, header)
         setDados(resposta.data)
     }catch (error) {
