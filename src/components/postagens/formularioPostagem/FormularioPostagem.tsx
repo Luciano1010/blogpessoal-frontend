@@ -17,7 +17,7 @@ function FormularioPostagem()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [temas, setTemas] = useState<Tema[]>([]) // traz todos os temas do back
 
-    const [tema, setTema] = useState<Tema>({ id: 0, descricao: '' }) 
+    const [tema, setTema] = useState<Tema>({ id: 0, descricao: '', }) 
     
     const [postagem, setPostagem] = useState<Postagem>({} as Postagem)
 
