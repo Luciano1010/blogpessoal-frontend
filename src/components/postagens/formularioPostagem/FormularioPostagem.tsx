@@ -26,6 +26,7 @@ function FormularioPostagem()
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
 
+    console.log(token)
 
     // as 3 funções abaixo eu usei a service pra usar o 'buscar'
     async function buscarPostagemPorId(id: string) {
@@ -35,7 +36,7 @@ function FormularioPostagem()
             },
         })
     }
-
+    console.log(buscarPostagemPorId)
     // função que vai fazer a lista de todos os temas para ser escolhido
     async function buscarTemaPorId(id: string) {
         await buscar(`/temas/${id}`, setTema, {
@@ -44,7 +45,7 @@ function FormularioPostagem()
             },
         })
     }
-
+    console.log(buscarTemaPorId)
     async function buscarTemas() {
         await buscar('/temas', setTemas, {
             headers: {
@@ -70,23 +71,25 @@ function FormularioPostagem()
 
     // é que vai atualizar caso o usuario queria atualizar o tema escolhido para aquela postagem.
     useEffect(() => {
-        setPostagem({
-            ...postagem, // usado o squadoperator traz meu array de postagem
-            tema: tema, // aqui atualiza os temas -
-        })
+        setPostagem(prevPostagem => ({
+            ...prevPostagem,
+            tema: tema,
+        }));
     }, [tema]);
+    
 
    
 
     // vai pegar a informações do usuario e fazendo os relacionamento
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-        setPostagem({
-            ...postagem,
+        setPostagem((prevPostagem) => ({
+            ...prevPostagem,
             [e.target.name]: e.target.value,
             tema: tema,
             usuario: usuario,
-        });
+        }));
     }
+    
 
     function retornar() {
         navigate('/postagens');
@@ -98,13 +101,15 @@ function FormularioPostagem()
 
         if (id != undefined) {
             try {
+                
                 await atualizar(`/postagens`, postagem, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
                 });
-
-                toastAlerta('Postagem atualizada com successo', "success")
+                console.log(token)
+                console.log(atualizar)
+                toastAlerta('Postagem atualizada com sucesso', "success")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
@@ -176,16 +181,15 @@ function FormularioPostagem()
                 </div>
                 
                 <div className="flex flex-col gap-2">
-                    
                     <p>Tema da Postagem</p>
-
-                    <select name="tema" id="tema" className='border p-2 border-slate-800 rounded'
+                <select name="tema" id="tema" className='border p-2 border-slate-800 rounded'
                      onChange={(e) => buscarTemaPorId(e.currentTarget.value)} 
                      >
-                        <option value="" selected disabled>Selecione um Tema</option> // 
+                   <option value="" selected disabled>Selecione um Tema</option> // 
+                        
                         {temas.map((tema) => (
                             <>
-                                <option key={tema.id} value={tema.id}>{tema.descricao}</option>
+                            <option key={tema.id} value={tema.id}>{tema.descricao}</option>
                             </>
                         ))}
                    
