@@ -26,7 +26,7 @@ function FormularioPostagem()
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
 
-    console.log(token)
+    
 
     // as 3 funções abaixo eu usei a service pra usar o 'buscar'
     async function buscarPostagemPorId(id: string) {
@@ -36,7 +36,7 @@ function FormularioPostagem()
             },
         })
     }
-    console.log(buscarPostagemPorId)
+    
     // função que vai fazer a lista de todos os temas para ser escolhido
     async function buscarTemaPorId(id: string) {
         await buscar(`/temas/${id}`, setTema, {
@@ -45,7 +45,7 @@ function FormularioPostagem()
             },
         })
     }
-    console.log(buscarTemaPorId)
+    
     async function buscarTemas() {
         await buscar('/temas', setTemas, {
             headers: {
@@ -107,8 +107,7 @@ function FormularioPostagem()
                         Authorization: token,
                     },
                 });
-                console.log(token)
-                console.log(atualizar)
+               
                 toastAlerta('Postagem atualizada com sucesso', "success")
 
             } catch (error: any) {
@@ -117,9 +116,10 @@ function FormularioPostagem()
                     handleLogout()
                 } else {
                     toastAlerta('Erro ao atualizar a Postagem', "error")
+                    
                 }
             }
-
+            console.log(postagem)
         } else {
             try {
                 await cadastrar(`/postagens`, postagem, setPostagem, {
@@ -189,11 +189,13 @@ function FormularioPostagem()
                         
                         {temas.map((tema) => (
                             <>
-                            <option key={tema.id} value={tema.id}>{tema.descricao}</option>
+                            <option value={tema.id}>{tema.descricao}</option>
                             </>
                         ))}
                    
                     </select>
+                    
+                    
                 </div>
                 <button
                     type='submit'

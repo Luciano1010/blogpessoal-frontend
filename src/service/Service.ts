@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://blogpessoal-93bx.onrender.com'
+    baseURL: import.meta.env.VITE_API_URL
 })
 
 // a setDados ele atualiza a variavel de estado em listaTema
