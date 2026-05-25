@@ -1,27 +1,161 @@
-# React + TypeScript + Vite
+# 🌐 Blog Pessoal - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend do sistema Blog Pessoal desenvolvido em **React + TypeScript + Vite**, consumindo uma API REST em ASP.NET Core com autenticação JWT.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 🚀 Demonstração
 
-## Expanding the ESLint configuration
+Aplicação publicada na Vercel:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+👉 https://blogpessoal-frontend-4pjfzjxzs-lucianos-projects-3a172c93.vercel.app
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+# 🧠 Funcionalidades
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Cadastro de usuário
+- Login com autenticação JWT
+- Criação de postagens
+- Listagem de temas
+- Atualização de postagens
+- Exclusão de postagens
+- Rotas protegidas
+- Consumo de API REST
+
+---
+
+# 🛠️ Tecnologias utilizadas
+
+- React
+- TypeScript
+- Vite
+- Axios
+- React Router DOM
+- Context API
+- JWT Authentication
+
+---
+
+# 📡 Backend (API)
+
+A aplicação consome a API hospedada na Render:
+
+👉 https://blogpessoal-dj0e.onrender.com
+
+---
+
+# ⚙️ Variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+VITE_API_URL=https://blogpessoal-dj0e.onrender.com
+
+---
+
+# ⚙️ Instalação local
+
+## Clonar repositório
+
+git clone https://github.com/Luciano1010/blogpessoal-frontend.git
+
+---
+
+## Entrar na pasta
+
+cd blogpessoal-frontend
+
+---
+
+## Instalar dependências
+
+npm install
+
+---
+
+## Rodar projeto
+
+npm run dev
+
+---
+
+# 🏗️ Build de produção
+
+npm run build
+
+---
+
+# 📁 Estrutura do projeto
+
+src/
+├── components/
+├── pages/
+├── services/
+├── contexts/
+├── routes/
+├── models/
+└── main.tsx
+
+---
+
+# 🔐 Autenticação JWT
+
+Authorization: Bearer {token}
+
+---
+
+# 📦 Axios (API service)
+
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+});
+
+export default api;
+
+---
+
+# ⚠️ Pontos em Melhorias (em correção)
+
+## Erro 400 no cadastro
+- Campos obrigatórios faltando
+- JSON fora do padrão do backend
+- Estrutura incorreta
+
+
+
+## Erro de CORS
+policy.AllowAnyOrigin()
+      .AllowAnyMethod()
+      .AllowAnyHeader();
+
+
+
+## API não conecta
+- Verificar .env
+- Backend rodando no Render
+- URL correta
+
+---
+
+# 🚀 Deploy
+
+Frontend hospedado na Vercel com deploy automático via GitHub.
+
+---
+
+# 👨‍💻 Autor
+
+Luciano Simões  
+GitHub: https://github.com/Luciano1010
+
+---
+
+# 📌 Observação
+
+Projeto full stack com foco em:
+- API REST
+- JWT Authentication
+- Deploy cloud
+- Integração frontend/backend
