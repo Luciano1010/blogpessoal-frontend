@@ -51,7 +51,7 @@ function Cadastro()
                 setIsLoading(true)
 
                 try {
-                    await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario)
+                    await cadastrarUsuario(usuario, setUsuario)
                     toastAlerta('Usuário cadastrado com sucesso', "success")
 
                 } catch (error) {
